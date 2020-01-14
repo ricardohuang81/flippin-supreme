@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Flippin' Supreme | Collectibles</title>
+  <link rel="icon" type="image/png" href="favicon.jpg" />
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="output.css">
+  <link rel="stylesheet" href="listings.css">
+</head>
+
+<body>
+
+  <nav>
+  </nav>
+  <content>
+    <div id="section" class="flex flex-wrap">
+      <div class="w-full m-auto text-3xl uppercase">Collectibles</div>
+      <div class="w-full">Exclusive Supreme Collectibles</div>
+    </div>
+
+    <div id="pageListings" class="flex justify-center flex-wrap">
+    </div>
+  </content>
+  <div id="modals"></div>
+  <div id="social" class="flex items-center justify-center w-full h-12 pr-6">
+  </div>
+  <footer></footer>
+</body>
+
+<!-- Twitter Script -->
+<script>window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+      t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+
+    t._e = [];
+    t.ready = function (f) {
+      t._e.push(f);
+    };
+
+    return t;
+  }(document, "script", "twitter-wjs"));
+</script>
+
+<script src="listings.js"></script>
+<script src="script.js"></script>
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<script src="modals.js"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script>
+  // Loop through each product and display on page
+  for (var listing in listings1.collectibles) {
+    var pageListings = document.querySelector("#pageListings");
+    pageListings.innerHTML += '<div onclick="productDetails(\'' + listing + '\');" class="cursor-pointer max-w-sm w-full rounded overflow-hidden shadow-lg rh-max-w-sm hover:shadow-md hover:border-black"> <div class="flex justify-center pt-3"><img class="w-auto" src="' + listings1.collectibles[listing].imgSrc + '" alt="' + listings1.collectibles[listing].imgAlt + '"> </div><div class="px-6 pt-4"> <div class="font-bold text-xl mb-2 rh-font-bold">' + listings1.collectibles[listing].name + '</div> <div class="flex pt-2 mb-2 rh-flex"> <div class="w-1/2 h-4">Ask Price</div> <div class="w-1/2 h-4">Avg. Sold</div> </div> </div> <div class="px-6"> <div class="flex pb-4"> <div style="color: #f687b3" class="w-1/2 h-12 rh-prices">$' + listings1.collectibles[listing].askPrice + '</div> <div style="color: #f56565" class="w-1/2 h-12 rh-prices">$' + listings1.collectibles[listing].avgSold + '</div> </div> </div> </div>';
+  }
+
+  function productDetails(listing) {
+    $('html,body').scrollTop(0);
+    document.querySelector("content").innerHTML = '<link rel="stylesheet" href="product-page/product_page.css"> <div class="flex px-3 mb-20"> <div class="flex items-center w-1/2 h-12"> <ul class="breadcrumb"> <li><a href="index.html">Home</a></li> <li><a href="collectibles.html">Collectibles</a></li> <li><span class="text-red">' + listings1.collectibles[listing].name + '</span></li> </ul> </div> </div> <div class="flex mb-4"> <div class="flex justify-center w-full h-12 uppercase text-4xl px-6">' + listings1.collectibles[listing].name + '</div> </div> <div class="flex justify-center mb-8"> <div class="w-1/4 mx-6"> <img class="w-full" src="' + listings1.collectibles[listing].imgSrc + '" alt="' + listings1.collectibles[listing].imgAlt + '"> </div> <div class="flex items-center w-1/4 text-2xl pl-3"> <div class="flex flex-col"> <div class="flex flex-row"> <div id="buyNow" class="flex w-1/2 justify-center rounded-lg uppercase px-4 py-4 m-2"> Buy $' + listings1.collectibles[listing].askPrice + ' </div> <div id="bid" class="flex w-1/2 justify-center rounded-lg uppercase px-4 py-4 m-2"> Bid </div> </div> <div class="product-props bg-red text-white px-4 py-4 m-2"> Next Bidding Closing: 2 hours </div> <div class="product-props bg-red text-white px-4 py-4 m-2"> MSRP: $' + listings1.collectibles[listing].askPrice + ' </div> <form id="buyForm" class="bg-white px-8 pt-6 pb-8 mb-4"> <label class="flex justify-center text-base font-bold mb-3"> Buy Now for $' + listings1.collectibles[listing].askPrice + '? </label> <div class="flex items-center justify-center"> <div id="buyButtonYes" class="flex w-1/4 justify-center rounded-lg text-base uppercase px-2 py-2 mx-1 my-2"> Yes </div> <div id="buyButtonNo" class="flex w-1/4 justify-center rounded-lg text-base uppercase px-2 py-2 mx-1 my-2"> No </div> </div> </form> <form id="bidForm" class="bg-white px-8 pt-6 pb-8 mb-4"> <label id="bidPrice" class="flex justify-center text-base font-bold mb-3"> Place Your Bid </label> <div class="flex items-center justify-center"> <input id="bidInput" class="appearance-none focus:outline-none text-xs border border-grey w-1/2 py-2 px-3 mr-2 leading-none" type="text" placeholder="Enter $"> <div id="submitBidButton" class="flex w-1/4 justify-center rounded text-xs uppercase py-2 mx-1"> Submit </div> </div> </form> </div> </div> </div> <div class="flex mb-4"> <div class="flex justify-center w-full h-12 uppercase text-4xl px-6">Historical Sold Prices</div> </div> <div class="flex justify-center mb-4"> <div class="w-3/4 mx-6 mb-20"> <div id="chart_div" style="height: 500px"></div> </div> </div>';
+    loadChart();
+    $('#buyNow').click(function() {
+      $('#bidForm').hide();
+      $('#buyForm').slideDown();
+    });
+    $('#buyButtonNo').click(function() {
+      $('#buyForm').hide();
+      if ($('#bidPrice').text().startsWith('Your Bid: ')) {
+        $('#bidForm').show();
+      }
+    });
+    $('#bid').click(function() {
+      var bid = $('#bidInput').val();
+      $('#buyForm').hide();
+      $('#bidForm').slideDown();
+    });
+    $('#submitBidButton').click(function() {
+      $('#bidInput').remove();
+      $('#submitBidButton').remove();
+      $('#bidPrice').css({'color': '#191970', 'font-size': '2rem'});
+      $('#bidPrice').text('Your Bid: $' + bid);
+    })
+}
+
+function loadChart() {
+  google.charts.load('current', { packages: ['corechart', 'line'] });
+  google.charts.setOnLoadCallback(drawBackgroundColor);
+
+  function drawBackgroundColor() {
+  var data = new google.visualization.DataTable();
+  data.addColumn('date', 'Date');
+  data.addColumn('number', 'Sold Prices');
+
+  data.addRows([
+    [new Date(2019, 1, 15), 40], [new Date(2019, 2, 15), 45], [new Date(2019, 3, 15), 60], [new Date(2019, 4, 15), 55], [new Date(2019, 5, 15), 50], [new Date(2019, 6, 15), 40],
+    [new Date(2019, 7, 15), 55], [new Date(2019, 8, 15), 50], [new Date(2019, 9, 15), 65]
+  ]);
+
+  var formatter = new google.visualization.DateFormat({ formatType: 'short' });
+
+  formatter.format(data, 0);
+
+  var options = {
+    series: {
+      0: { color: '#FF0000' }
+    },
+    hAxis: {
+      title: 'Date',
+      format: 'MMM yyyy'
+    },
+    vAxis: {
+      title: 'Range of Prices'
+    },
+    backgroundColor: '#fff5f5'
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+  chart.draw(data, options);
+  };
+  }
+</script>
+
+</html>
